@@ -1,7 +1,7 @@
 # autostate
 Real estate record automation for prospect research:
 
-vers 1.1.1
+vers 1.1.2
 
 Built in R using Shiny Package
 
