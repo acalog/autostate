@@ -9,6 +9,5 @@ Additional Packages: dplyr | stringr | lucr
 Constants:
 
 Function definitions:
-abbreviateState
-num2word
+abbreviateState | num2word
 
