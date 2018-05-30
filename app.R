@@ -239,7 +239,7 @@ server <- function(input, output, session) {
   })
   
   acreout <- reactive({
-      paste0("This parcel is ", ifelse(input$acres=="1", paste0(input$acres, " acre."), paste0(input$acres, " acres.")))
+      paste0(" This parcel is ", ifelse(input$acres=="1", paste0(input$acres, " acre."), paste0(input$acres, " acres.")))
   })
   
   # output for additional property details
@@ -268,11 +268,11 @@ ui <- fluidPage(
   h1("Real Estate Helper"),
   h4("Fill out the fields below and press 'Generate' to create output."),
   fluidRow(
-    selectInput("propuse", "Property Use:",
-                choices=c("Primary", "Seasonal", "Income", "Other"))
-    
-  ),
-
+    column(2,
+           selectInput("propuse", "Property Use:",
+                       choices=c("Primary", "Seasonal", "Income", "Other"))
+           )
+    ),
   fluidRow(
     column(1, 
       radioButtons("class", "Property Class",
@@ -282,7 +282,10 @@ ui <- fluidPage(
                                 "Farm/Agricultural"="farm-use",
                                 "Vacant"="vacant parcel"))
       
-           )),
+           ),
+    column(10, offset = 1,
+           htmlOutput("entry"),
+           htmlOutput("details"))),
   fluidRow(
     column(3, wellPanel(
       textInput("address", "Address:"),
@@ -318,16 +321,10 @@ ui <- fluidPage(
       checkboxInput("sale", "For Sale:", value=FALSE),
       checkboxInput("reno", "Renovated:", value=FALSE),
       uiOutput("acreage")
-    ))),
+      
+    ),
+    actionButton("gen", "Generate Record")))
 
-  fluidRow(
-    br(),
-    actionButton("gen", "Generate Record"),
-    br(),
-    hr(),
-    htmlOutput("entry"),
-    htmlOutput("details"),
-    br(),
-    br()))
+  )
 
 shinyApp(ui=ui, server=server)
